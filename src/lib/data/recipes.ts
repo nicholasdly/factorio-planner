@@ -1,7 +1,14 @@
 // Sourced from the Official Factorio Wiki: https://wiki.factorio.com/Materials_and_recipes
 
-import { Recipe } from "../types";
+import { NonEmptyArray } from "../utils";
 import { Item } from "./items";
+
+export type Recipe = {
+  products: NonEmptyArray<{ item: Item; count: number }>;
+  duration: number;
+  ingredients: NonEmptyArray<{ item: Item; count: number }>;
+  manufacturers: NonEmptyArray<Item>;
+};
 
 export const recipes: Readonly<Recipe[]> = [
   {
@@ -246,3 +253,13 @@ export const recipes: Readonly<Recipe[]> = [
   },
   // TODO: Add more recipes!
 ];
+
+export function getRecipe(item: Item): Recipe {
+  const recipe = recipes.find((x) => x.products.find((y) => y.item === item));
+
+  if (!recipe) {
+    throw new Error(`A recipe for "${item}" was not found!`);
+  }
+
+  return recipe;
+}

@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Factorio Planner
 
-## Getting Started
+> Factorio Planner is a web-based factory planner for Factorio, inspired by the Factory Planner mod.
 
-First, run the development server:
+## Development
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**Factorio Planner** is built with the following tools:
+
+- **Web Framework**: [Next.js](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+### Installation
+
+1. Fork and clone this repository using `git clone`.
+
+2. Install npm packages:
+
+```zsh
+npm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Run the following command to start a local development server.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```zsh
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Contributing
 
-## Learn More
+1. Create a new branch.
 
-To learn more about Next.js, take a look at the following resources:
+```zsh
+# Creates a new feature branch off of the current branch
+git checkout -b feature/<issue#>-<description>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Creates a new bug fix branch off of the current branch
+git checkout -b bugfix/<issue#>-<description>
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. Run the Prettier formatting script, and resolve any major issues caught by the linter. Commit those changes as well.
 
-## Deploy on Vercel
+```zsh
+npm run lint  # Alerts you of issues, but does not fix them for you
+npm run format:write  # Applies Prettier formatting to the entire repo.
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Stage and commit your changes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```zsh
+git add .
+git commit -m <message>
+git push origin <branch_name>
+```
+
+1. Push your changes and make a pull request.
+
+```zsh
+git push origin <branch_name>
+```
+
+## License
+
+Licensed under the MIT License, Copyright © 2024

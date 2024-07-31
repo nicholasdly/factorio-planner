@@ -11,3 +11,7 @@ export type NonEmptyArray<T> = [T, ...T[]];
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const formatNumber = Intl.NumberFormat("en", {
+  notation: "compact",
+}).format;

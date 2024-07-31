@@ -35,6 +35,9 @@ import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { Check, ChevronsUpDown, MoreHorizontal } from "lucide-react";
 import { useState } from "react";
+import ItemButton from "./item-button";
+import Image from "next/image";
+import { assets } from "@/lib/data/assets";
 
 export const columns: ColumnDef<Production>[] = [
   {
@@ -54,13 +57,13 @@ export const columns: ColumnDef<Production>[] = [
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="w-64 justify-between"
+                className="w-72 justify-between"
               >
                 {goal?.item ?? "Select an item..."}
                 <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-64 p-0">
+            <PopoverContent className="w-72 p-0">
               <Command>
                 <CommandInput placeholder="Search items..." />
                 <CommandEmpty>No item found.</CommandEmpty>
@@ -82,6 +85,16 @@ export const columns: ColumnDef<Production>[] = [
                           )}
                         />
                         {item}
+                        <div className="relative ml-1 size-4 overflow-hidden">
+                          <Image
+                            className="object-cover"
+                            src={assets[item]}
+                            alt={item}
+                            width={16}
+                            height={16}
+                            quality={25}
+                          />
+                        </div>
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -162,14 +175,31 @@ export const columns: ColumnDef<Production>[] = [
     accessorKey: "ingredients",
     header: "Ingredients per minute",
     cell: ({ row }) => {
-      const { getProduction } = useFactoryStore();
+      const {
+        getProduction,
+        createProduction,
+        setProductionGoalItem,
+        setProductionGoalCount,
+      } = useFactoryStore();
       const { ingredients, goal } = getProduction(0, row.index);
 
       return (
-        <div className="flex flex-col text-nowrap">
+        <div className="flex gap-1 text-nowrap">
           {ingredients?.map(({ item, count }, index) => (
             <div key={index}>
-              {item} x {(count * goal!.count).toLocaleString()}
+              <ItemButton
+                item={item}
+                count={count * goal!.count}
+                onClick={() => {
+                  const productionIndex = createProduction(0);
+                  setProductionGoalItem(0, productionIndex, item);
+                  setProductionGoalCount(
+                    0,
+                    productionIndex,
+                    count * goal!.count,
+                  );
+                }}
+              />
             </div>
           ))}
         </div>

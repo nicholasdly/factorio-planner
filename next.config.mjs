@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [{ hostname: "wiki.factorio.com" }],
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

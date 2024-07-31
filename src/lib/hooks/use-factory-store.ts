@@ -21,10 +21,10 @@ type FactoryState = {
 };
 
 type FactoryActions = {
-  createFactory: () => void;
+  createFactory: () => number;
   deleteFactory: (index: number) => void;
   getFactory: (factoryIndex: number) => Factory;
-  createProduction: (factoryIndex: number) => void;
+  createProduction: (factoryIndex: number) => number;
   deleteProduction: (factoryIndex: number, productionIndex: number) => void;
   getProduction: (factoryIndex: number, productionIndex: number) => Production;
   setProductionGoalItem: (
@@ -62,12 +62,14 @@ function computeMachineQuantity(
 
 export const useFactoryStore = create<FactoryStore>((set, get) => ({
   factories: [{ productions: [{}] }],
-  createFactory: () =>
-    set((state) => ({ factories: [...state.factories, { productions: [] }] })),
+  createFactory: () => {
+    set((state) => ({ factories: [...state.factories, { productions: [] }] }));
+    return get().factories.length - 1;
+  },
   deleteFactory: (index) =>
     set((state) => ({ factories: state.factories.splice(index, 1) })),
   getFactory: (factoryIndex) => get().factories[factoryIndex],
-  createProduction: (factoryIndex) =>
+  createProduction: (factoryIndex) => {
     set((state) => {
       const factory = state.factories[factoryIndex];
 
@@ -75,7 +77,10 @@ export const useFactoryStore = create<FactoryStore>((set, get) => ({
 
       log(state, state.createProduction.name);
       return { factories: state.factories };
-    }),
+    });
+
+    return get().factories[factoryIndex].productions.length - 1;
+  },
   deleteProduction: (factoryIndex, productionIndex) =>
     set((state) => {
       const factory = state.factories[factoryIndex];
